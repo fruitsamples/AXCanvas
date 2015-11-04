@@ -173,7 +173,8 @@
 			[[representedObject document] selectCanvasObject:representedObject];			
 		}
 	}
-	isDragging = YES;
+    draggingOrigin = [self convertPoint:[e locationInWindow] fromView:nil];
+    isDragging = YES;
 }
 
 - (void)mouseDragged:(NSEvent *)e {
@@ -181,43 +182,36 @@
 	if(!isDragging) // Check if the user has cancelled the drag.
 		return;
 	
-	if(([e deltaX] != 0) || ([e deltaY] != 0)) {
-		
-		// Grab the point before and after scrolling so the deltaX and deltaY
-		// values can be appropriately adjusted for the scroll. This doesn't always
-		// work when the users drags in the Dock or the menu bar, where coordinate
-		// systems can work differently than expected. The right approach is to
-		// save the mouseDown point and calculate the delta from that, but this
-		// technique makes it easier to support the dragging of multiple canvas
-		// objects at once.
-		NSPoint aPoint = [e locationInWindow];
-		NSPoint firstPoint = [self convertPoint:aPoint fromView:nil];
-		[self autoscroll:e];
-		NSPoint secondPoint = [self convertPoint:aPoint fromView:nil];
-				
-		// Since the scrolling delta is in the window's coordinate system, we
-		// need to adjust for any potential zooming.
-		float scaleFactor = [(CanvasView *)[self superview] scaleFactor];
-		float deltaX = ([e deltaX] / scaleFactor) + (secondPoint.x - firstPoint.x);
-		float deltaY = ([e deltaY] / scaleFactor) + (secondPoint.y - firstPoint.y);
-		
-		// Move each object inside the selection.
-		NSEnumerator *enumerator = [[[representedObject document] selectedObjects] objectEnumerator];
-		CanvasObject *canvasObject;
-		NSView *view; NSPoint origin;
-		while(canvasObject = [enumerator nextObject]) {
-			// Calculate the new position of each selected canvas object.
-			view = [canvasObject view];
-			origin = [view frame].origin;
-			origin.x += deltaX; origin.y += deltaY;
-
-			// Redraw at the old and new positions.
-			[[view superview] setNeedsDisplayInRect:[view frame]];
-			[view setFrameOrigin:origin];
-			[view setNeedsDisplay:YES];
-		}
-		
-	}
+    if(([e deltaX] != 0) || ([e deltaY] != 0)) {
+    
+        // Save the current mouse position to compare with the original drag position
+        NSPoint currentPosition = [self convertPoint:[e locationInWindow] fromView:nil];
+        
+        // Since the scrolling delta is in the window's coordinate system, we
+        // need to adjust for any potential zooming.
+        float scaleFactor = [(CanvasView *)[self superview] scaleFactor];
+        float deltaX = ((currentPosition.x - draggingOrigin.x) / scaleFactor);
+        float deltaY = ((currentPosition.y - draggingOrigin.y) / scaleFactor);
+        
+        // Move each object inside the selection.
+        NSEnumerator *enumerator = [[[representedObject document] selectedObjects] objectEnumerator];
+        CanvasObject *canvasObject;
+        NSView *view; NSPoint origin;
+        while(canvasObject = [enumerator nextObject]) {
+            // Calculate the new position of each selected canvas object.
+            view = [canvasObject view];
+            origin = [view frame].origin;
+            origin.x += deltaX; origin.y += deltaY;
+            
+            // Redraw at the old and new positions.
+            [[view superview] setNeedsDisplayInRect:[view frame]];
+            [view setFrameOrigin:origin];
+            [view setNeedsDisplay:YES];
+        }
+        
+        // Support automatic scrolling during a drag
+        [self autoscroll:e];
+    }
 }
 
 - (void)mouseUp:(NSEvent *)e {
@@ -236,8 +230,8 @@
 		
 		[canvasObject setPosition:[[canvasObject view] frame].origin];	
 	}
+    
 	isDragging = NO;
-	
 }
 
 #pragma mark Editing

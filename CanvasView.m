@@ -256,7 +256,7 @@
 	// End selection and invalidate selection rectangle drawing region.
 	isMouseDown = NO;
 	if((selectionStartPoint.x != -1)  && (selectionStartPoint.y != -1))
-		[self setNeedsDisplayInRect:selectionRect];
+		[self setNeedsDisplayInRect:NSInsetRect(selectionRect, -1, -1)];    // Outset by 1 pixel to avoid drawing artifacts while in HiDPI mode
 	
 	selectionStartPoint = NSMakePoint( -1, -1 );
 	selectionRect = NSZeroRect;

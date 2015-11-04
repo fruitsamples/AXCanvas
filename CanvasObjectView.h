@@ -75,6 +75,9 @@
 
 	// Dragging state
 	BOOL isDragging;
+    
+    // Last mouse position prior to dragging
+    NSPoint draggingOrigin;
 }
 
 - (id)initWithCanvasObject:(CanvasObject *)canvasObject;

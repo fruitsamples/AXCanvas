@@ -67,30 +67,6 @@
 		};
 /* End PBXBuildRule section */
 
-/* Begin PBXBuildStyle section */
-		4A9504D0FFE6A4CB11CA0CBA /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		4A9504D1FFE6A4CB11CA0CBA /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
-
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -412,21 +388,11 @@
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
-				E7AE07A1079DDA1100DF8794 /* ShellScript */,
+				842524C20B83F11800D560B3 /* ShellScript */,
 			);
 			buildRules = (
 				E7FDBF76071E2C6C007ECFC2 /* PBXBuildRule */,
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AXCanvas_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = $DSTROOT/Developer/Examples/Accessibility/AXCanvas;
-				PRODUCT_NAME = AXCanvas;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = app;
-			};
 			dependencies = (
 			);
 			name = AXCanvas;
@@ -441,15 +407,12 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 846604A1090055D200D43022 /* Build configuration list for PBXProject "AXCanvas" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				4A9504D0FFE6A4CB11CA0CBA /* Development */,
-				4A9504D1FFE6A4CB11CA0CBA /* Deployment */,
-			);
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* AXCanvas */;
 			projectDirPath = "";
+			projectRoot = "";
+			shouldCheckCompatibility = 1;
 			targets = (
 				8D15AC270486D014006FF6A4 /* AXCanvas */,
 			);
@@ -491,7 +454,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E7AE07A1079DDA1100DF8794 /* ShellScript */ = {
+		842524C20B83F11800D560B3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
@@ -501,7 +464,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/tcsh;
+			shellPath = /bin/sh;
 			shellScript = "xcodebuild installsrc SRCROOT=$DSTROOT/Developer/Examples/Accessibility/AXCanvas\n/bin/rm -rf $DSTROOT/Developer/Examples/Accessibility/AXCanvas/build/\n/usr/sbin/chown root:wheel $DSTROOT/Developer/Examples/Accessibility/AXCanvas/*\n";
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -634,8 +597,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AXCanvas_Prefix.pch;
@@ -651,8 +612,6 @@
 		8466049F090055D200D43022 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AXCanvas_Prefix.pch;
@@ -661,23 +620,8 @@
 				PRODUCT_NAME = AXCanvas;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
-		};
-		846604A0090055D200D43022 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AXCanvas_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = $DSTROOT/Developer/Examples/Accessibility/AXCanvas;
-				PRODUCT_NAME = AXCanvas;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Default;
 		};
 		846604A2090055D200D43022 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -687,8 +631,10 @@
 					i386,
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				ZERO_LINK = YES;
 			};
 			name = Development;
@@ -700,22 +646,12 @@
 					ppc,
 					i386,
 				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Deployment;
-		};
-		846604A4090055D200D43022 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-			};
-			name = Default;
 		};
 /* End XCBuildConfiguration section */
 
@@ -725,20 +661,18 @@
 			buildConfigurations = (
 				8466049E090055D200D43022 /* Development */,
 				8466049F090055D200D43022 /* Deployment */,
-				846604A0090055D200D43022 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Deployment;
 		};
 		846604A1090055D200D43022 /* Build configuration list for PBXProject "AXCanvas" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				846604A2090055D200D43022 /* Development */,
 				846604A3090055D200D43022 /* Deployment */,
-				846604A4090055D200D43022 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Deployment;
 		};
 /* End XCConfigurationList section */
 	};
